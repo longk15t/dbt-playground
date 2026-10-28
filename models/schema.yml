@@ -1,27 +1,57 @@
 
 version: 2
 
+sources:
+  - name: jaffle_shop
+    database: raw
+    schema: jaffle_shop
+    tables:
+      - name: customers
+      - name: orders
+
+  - name: stripe
+    database: raw
+    tables:
+      - name: payments
+      
 models:
-    - name: dim_customers
-      description: "Jaffle Shop customer final model"
-      columns:
-          - name: customer_id
-            description: "The primary key for this table"
-            tests:
-                - unique
-                - not_null
+  - name: dim_customers
+    description: "Jaffle Shop customer final model"
+    columns:
+        - name: customer_id
+          description: "The primary key for this table"
+          tests:
+              - unique
+              - not_null
 
-          - name: first_name
-            description: "First name of customer must not be null"
-            tests:
-                - not_null
+        - name: first_name
+          description: "First name of customer must not be null"
+          tests:
+              - not_null
 
-          - name: last_name
-            description: "Last name of customer must not be null"
-            tests:
-                - not_null
+        - name: last_name
+          description: "Last name of customer must not be null"
+          tests:
+              - not_null
 
-          - name: number_of_orders
-            description: "Number of order should be not null"
-            tests:
-                - not_null
+        - name: number_of_orders
+          description: "Number of order should be not null"
+          tests:
+              - not_null
+  - name: fct_orders
+    description: "Fact orders of Jaffle Shop"
+    columns:
+        - name: order_id
+          description: "The order id"
+          tests:
+              - not_null
+
+        - name: customer_id
+          description: "Customer id should not be null"
+          tests:
+              - not_null
+
+        - name: amount
+          description: "Amount should not be null"
+          tests:
+              - not_null
