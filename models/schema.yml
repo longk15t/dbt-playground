@@ -12,8 +12,8 @@ sources:
   - name: stripe
     database: raw
     tables:
-      - name: payments
-      
+      - name: payment
+
 models:
   - name: dim_customers
     description: "Jaffle Shop customer final model"

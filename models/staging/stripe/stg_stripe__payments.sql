@@ -6,4 +6,4 @@
         amount as payment_amount,
         created as payment_created,
 
-    from raw.stripe.payment
+    from {{ source('stripe', 'payment') }}
