@@ -33,43 +33,55 @@ sources:
       - name: payment
 
 models:
+  - name: stg_jaffle_shop__orders
+    description: "Test cases for staging model stg_jaffle_shop__orders"
+    columns:
+      - name: status
+        data_tests:
+          - accepted_values:
+              arguments:
+                values: ['completed', 'returned', 'return_pending', 'shipped', 'placed']
+      - name: customer_id
+        data_tests:
+          - relationships:
+              arguments:
+                to: ref('stg_jaffle_shop__customers')
+                field: customer_id
   - name: dim_customers
     description: "Jaffle Shop customer final model"
     columns:
-        - name: customer_id
-          description: "The primary key for this table"
-          tests:
-              - unique
-              - not_null
+      - name: customer_id
+        description: "The primary key for this table"
+        data_tests:
+          - unique
+          - not_null
+      - name: first_name
+        description: "First name of customer must not be null"
+        data_tests:
+          - not_null
+      - name: last_name
+        description: "Last name of customer must not be null"
+        data_tests:
+          - not_null
+      - name: number_of_orders
+        description: "Number of order should be not null"
+        data_tests:
+          - not_null
 
-        - name: first_name
-          description: "First name of customer must not be null"
-          tests:
-              - not_null
-
-        - name: last_name
-          description: "Last name of customer must not be null"
-          tests:
-              - not_null
-
-        - name: number_of_orders
-          description: "Number of order should be not null"
-          tests:
-              - not_null
   - name: fct_orders
     description: "Fact orders of Jaffle Shop"
     columns:
-        - name: order_id
-          description: "The order id"
-          tests:
-              - not_null
+      - name: order_id
+        description: "The order id"
+        data_tests:
+          - not_null
 
-        - name: customer_id
-          description: "Customer id should not be null"
-          tests:
-              - not_null
+      - name: customer_id
+        description: "Customer id should not be null"
+        data_tests:
+          - not_null
 
-        - name: amount
-          description: "Amount should not be null"
-          tests:
-              - not_null
+      - name: amount
+        description: "Amount should not be null"
+        data_tests:
+          - not_null
